@@ -1,8 +1,11 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,  ModalController , ViewController, ActionSheetController  } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
+import { CommentPage } from '../../pages/comment/comment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 
 
 /**
@@ -28,10 +31,15 @@ export class DishdetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     @Inject('BaseURL') private BaseURL,
     private favoriteservice: FavoriteProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private actionSheetCtrl: ActionSheetController,
+    public modalCtrl: ModalController,
+    public viewCtrl: ViewController,
+    private socialSharing: SocialSharing) {
       
     this.dish = navParams.get('dish');
     this.favorite = favoriteservice.isFavorite(this.dish.id);
+    
     this.numcomments = this.dish.comments.length; 
     let total = 0;
     this.dish.comments.forEach(comment => total += comment.rating );
@@ -52,5 +60,60 @@ export class DishdetailPage {
     duration: 3000}).present();
   }
 
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Select Actions',
+      buttons: [
+      
+        {
+          text: 'Add to Favorites',
+          handler: () =>{
+          
+          this.addToFavorites();
+          }
+           
+        },
+
+       {
+        text: 'Add Comment',
+        handler: () =>{
+          
+            let modal = this.modalCtrl.create(CommentPage);
+            modal.present();
+      }
+    },
+    {
+      text: 'Share via Facebook',
+      handler: () => {
+        this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+          .then(() => console.log('Posted successfully to Facebook'))
+          .catch(() => console.log('Failed to post to Facebook'));
+      }
+    },
+    {
+      text: 'Share via Twitter',
+      handler: () => {
+        this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+          .then(() => console.log('Posted successfully to Twitter'))
+          .catch(() => console.log('Failed to post to Twitter'));
+      }
+    },
+     
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+ 
+    actionSheet.present();
+  }
+
   
 }
+
+  
