@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Http, Response } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient,  HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import 'rxjs/add/observable/throw';
 
@@ -13,7 +13,7 @@ import 'rxjs/add/observable/throw';
 @Injectable()
 export class ProcessHttpmsgProvider {
 
-  constructor(public http: Http) {
+  constructor(public http: HttpClient) {
     console.log('Hello ProcessHttpmsgProvider Provider');
   }
 
