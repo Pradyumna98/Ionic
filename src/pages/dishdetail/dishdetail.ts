@@ -60,6 +60,16 @@ export class DishdetailPage {
     duration: 3000}).present();
   }
 
+  openCommentForm() {
+
+    let modal = this.modalCtrl.create(CommentPage);
+
+    modal.onDidDismiss(comment => {
+      this.dish.comments.push(comment);
+    });
+
+    modal.present();
+  }
 
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -69,7 +79,7 @@ export class DishdetailPage {
         {
           text: 'Add to Favorites',
           handler: () =>{
-          
+          console.log('Favorites clicked');
           this.addToFavorites();
           }
            
@@ -78,27 +88,28 @@ export class DishdetailPage {
        {
         text: 'Add Comment',
         handler: () =>{
-          
-            let modal = this.modalCtrl.create(CommentPage);
-            modal.present();
-      }
-    },
-    {
-      text: 'Share via Facebook',
-      handler: () => {
-        this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
-          .then(() => console.log('Posted successfully to Facebook'))
-          .catch(() => console.log('Failed to post to Facebook'));
-      }
-    },
-    {
-      text: 'Share via Twitter',
-      handler: () => {
-        this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
-          .then(() => console.log('Posted successfully to Twitter'))
-          .catch(() => console.log('Failed to post to Twitter'));
-      }
-    },
+        console.log('Comment clicked')
+        this.openCommentForm();
+        }
+      },
+
+      {
+        text: 'Share via Facebook',
+        handler: () => {
+          this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+            .then(() => console.log('Posted successfully to Facebook'))
+            .catch(() => console.log('Failed to post to Facebook'));
+        }
+      },
+      {
+        text: 'Share via Twitter',
+        handler: () => {
+          this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+            .then(() => console.log('Posted successfully to Twitter'))
+            .catch(() => console.log('Failed to post to Twitter'));
+        }
+      },
+
      
         {
           text: 'Cancel',

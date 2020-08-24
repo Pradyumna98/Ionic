@@ -15,6 +15,9 @@ import { ContactPage } from '../pages/contact/contact';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { EmailComposer } from '@ionic-native/email-composer';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 import { LocalNotifications, LocalNotificationsOriginal } from '@ionic-native/local-notifications';
 import { DishProvider } from '../providers/dish/dish';
 import { LeaderProvider } from '../providers/leader/leader';
@@ -52,6 +55,8 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LocalNotificationsOriginal,
+    EmailComposer,
+    SocialSharing,
     DishProvider,
     LeaderProvider,
     PromotionProvider,
