@@ -21,6 +21,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Camera } from '@ionic-native/camera';
 import { LocalNotifications} from '@ionic-native/local-notifications';
+import { Network } from '@ionic-native/network';
 
 
 import { DishProvider } from '../providers/dish/dish';
@@ -72,6 +73,9 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     { provide: 'BaseURL', useValue: baseURL },
     FavoriteProvider,
     Camera,
+    Network
+    
+    
   ]
 })
 export class AppModule {}
