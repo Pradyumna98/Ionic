@@ -11,14 +11,18 @@ import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { MenuPage } from '../pages/menu/menu';
 import { ContactPage } from '../pages/contact/contact';
+import { RegisterPage } from '../pages/register/register';
+
 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { EmailComposer } from '@ionic-native/email-composer';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { Camera } from '@ionic-native/camera';
+import { LocalNotifications} from '@ionic-native/local-notifications';
 
-import { LocalNotifications, LocalNotificationsOriginal } from '@ionic-native/local-notifications';
+
 import { DishProvider } from '../providers/dish/dish';
 import { LeaderProvider } from '../providers/leader/leader';
 import { PromotionProvider } from '../providers/promotion/promotion';
@@ -33,7 +37,9 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     HomePage,
     AboutPage,
     MenuPage,
-    ContactPage
+    ContactPage,
+    RegisterPage
+
   ],
   imports: [
     BrowserModule,
@@ -48,13 +54,15 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     HomePage,
     AboutPage,
     MenuPage,
-    ContactPage
+    ContactPage,
+    RegisterPage
+
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    LocalNotificationsOriginal,
+    LocalNotifications,
     EmailComposer,
     SocialSharing,
     DishProvider,
@@ -63,6 +71,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     ProcessHttpmsgProvider,
     { provide: 'BaseURL', useValue: baseURL },
     FavoriteProvider,
+    Camera,
   ]
 })
 export class AppModule {}
